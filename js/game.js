@@ -242,19 +242,15 @@ Putting.game = (function () {
     }, CLIPBOARD_TIMEOUT_MS);
   }
 
-  function onShareClicked() {
-    var text = '당신의 퍼팅 실력은 ' + state.totalScore + '점 입니다.';
-    var url = window.location.href;
+  var SHARE_URL = 'https://puttingchallange.vercel.app/';
 
-    if (navigator.share) {
-      navigator
-        .share({ title: '퍼팅 챌린지', text: text, url: url })
-        .catch(function () {
-          /* user cancelled the share sheet — nothing to do */
-        });
-      return;
-    }
-    copyToClipboard(text + ' ' + url);
+  function onShareClicked() {
+    var text =
+      '당신의 퍼팅 실력은 ' +
+      state.totalScore +
+      '점 입니다! 나보다 잘 넣을 수 있어? 지금 도전해보세요 👉 ' +
+      SHARE_URL;
+    copyToClipboard(text);
   }
 
   function init(domRefs) {
