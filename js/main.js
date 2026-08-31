@@ -34,6 +34,8 @@
       startBtn: byId('start-btn'),
       gameOverScreen: byId('game-over-screen'),
       finalScoreValue: byId('final-score-value'),
+      gradeBadge: byId('grade-badge'),
+      tauntQuote: byId('taunt-quote'),
       restartBtn: byId('restart-btn'),
       shareBtn: byId('share-btn'),
       shareFeedback: byId('share-feedback'),

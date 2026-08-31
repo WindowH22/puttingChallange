@@ -134,10 +134,19 @@ Putting.game = (function () {
     setScreen('result');
   }
 
+  function skillScoreFromTotal() {
+    return Math.round(state.totalScore / levels.TOTAL_HOLES);
+  }
+
   function onNextClicked() {
     state.holeIndex += 1;
     if (state.holeIndex >= levels.TOTAL_HOLES) {
-      dom.finalScoreValue.textContent = String(state.totalScore);
+      var skillScore = skillScoreFromTotal();
+      var grade = scoring.gradeForSkillScore(skillScore);
+
+      dom.finalScoreValue.textContent = String(skillScore);
+      dom.gradeBadge.textContent = grade.emoji + ' 상위 ' + grade.percentile + '%';
+      dom.tauntQuote.textContent = '"' + grade.quote + '"';
       dom.shareFeedback.classList.remove('is-visible');
       setScreen('gameOver');
       return;
@@ -245,10 +254,17 @@ Putting.game = (function () {
   var SHARE_URL = 'https://puttingchallange.vercel.app/';
 
   function onShareClicked() {
+    var skillScore = skillScoreFromTotal();
+    var grade = scoring.gradeForSkillScore(skillScore);
+
     var text =
-      '당신의 퍼팅 실력은 ' +
-      state.totalScore +
-      '점 입니다! 나보다 잘 넣을 수 있어? 지금 도전해보세요 👉 ' +
+      '🏌️ 내 퍼팅 점수 ' +
+      skillScore +
+      '점 / 상위 ' +
+      grade.percentile +
+      '%\n' +
+      grade.shareTaunt +
+      '\n👉 퍼팅 테스트 해보기\n' +
       SHARE_URL;
     copyToClipboard(text);
   }
