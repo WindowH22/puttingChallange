@@ -185,9 +185,33 @@ Putting.game = (function () {
 
   var CLIPBOARD_TIMEOUT_MS = 1500;
 
+  function legacyCopy(text) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.top = '-9999px';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+
+    var success = false;
+    try {
+      success = document.execCommand('copy');
+    } catch (err) {
+      success = false;
+    }
+    document.body.removeChild(textarea);
+    return success;
+  }
+
   function copyToClipboard(fullText) {
     if (!navigator.clipboard || !navigator.clipboard.writeText) {
-      showShareFeedback(fullText);
+      if (legacyCopy(fullText)) {
+        showToast('링크가 복사되었어요!');
+      } else {
+        showShareFeedback(fullText);
+      }
       return;
     }
 
