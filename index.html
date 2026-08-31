@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>퍼팅 챌린지</title>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <h1 class="app-title">퍼팅 <span>챌린지</span></h1>
+    <p class="total-score">TOTAL <strong id="total-score-value">0</strong></p>
+  </header>
+
+  <main class="layout">
+    <section id="scorecard" class="scorecard playing-only" aria-labelledby="hole-progress">
+      <p class="hole-progress" id="hole-progress">홀 1 / 6</p>
+
+      <div class="stat-grid">
+        <div class="stat-tile">
+          <span class="label">거리</span>
+          <span class="value" id="stat-distance">0m</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">경사</span>
+          <span class="value" id="stat-slope">-</span>
+        </div>
+        <div class="stat-tile">
+          <span class="label">높낮이</span>
+          <span class="value" id="stat-elevation">-</span>
+        </div>
+      </div>
+
+      <p class="instruction">공을 클릭한 채로 뒤로 당겼다 놓으면 반대 방향으로 퍼팅합니다. 당기는 거리가 셀수록 세기가 강해져요.</p>
+
+      <div class="power-meter" id="power-meter">
+        <div class="power-meter__fill" id="power-fill"></div>
+      </div>
+
+      <div class="result-banner" id="result-banner" data-tier="miss">
+        <span id="result-label">-</span>
+        <span class="points" id="result-points">+0</span>
+      </div>
+
+      <button class="primary-btn" id="next-btn" type="button">다음 홀 →</button>
+    </section>
+
+    <div id="stage" class="stage playing-only">
+      <canvas id="green-canvas"></canvas>
+    </div>
+
+    <section id="menu-screen" class="overlay-screen">
+      <h1>퍼팅 챌린지</h1>
+      <p>총 6개의 홀. 거리와 경사, 높낮이를 보고 방향과 세기를 판단해 퍼팅하세요.</p>
+      <p>공을 클릭 후 뒤로 드래그했다 놓으면 반대 방향으로 공이 굴러갑니다.</p>
+      <button class="primary-btn is-visible" id="start-btn" type="button">시작하기</button>
+    </section>
+
+    <section id="game-over-screen" class="overlay-screen">
+      <h1>라운드 종료</h1>
+      <p>최종 점수</p>
+      <p class="club-tally" id="final-score-value">0</p>
+      <div class="game-over-actions">
+        <button class="primary-btn accent-btn is-visible" id="share-btn" type="button">공유하기</button>
+        <button class="primary-btn secondary-btn is-visible" id="restart-btn" type="button">다시 시작</button>
+      </div>
+      <p class="share-feedback" id="share-feedback"></p>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/physics.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/scoring.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
